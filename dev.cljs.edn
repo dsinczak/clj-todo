@@ -1,0 +1,17 @@
+;; Fighweel config options. Described here:
+;; https://github.com/bhauman/figwheel-main/blob/master/doc/figwheel-main-options.md
+
+^{:watch-dirs    ["src/cljs" "src/cljc"]
+  :css-dirs      ["resources/public/css"]
+  :open-url      false
+  :figwheel-core true}
+
+;; CLJS compiler options.
+
+{:language-in  :ecmascript-next
+ :main         org.dsinczak.todo.core
+ :output-dir   "resources/public/js/compiled/out"
+ :output-to    "resources/public/js/compiled/app.js"
+ :asset-path   "js/compiled/out"
+ :source-map   true
+ :pretty-print true}

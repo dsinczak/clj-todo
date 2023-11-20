@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  wait:
+    image: dokku/wait
+
+  postgres-clj-todo:
+    image: postgres:14-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "6666:5432"
+    environment:
+      - POSTGRES_USER=todo_dev_user
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=todo_dev_db
+
+volumes:
+  postgres_data:
+    name: clj_todo_postgres_data

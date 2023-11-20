@@ -1,0 +1,19 @@
+{:tasks
+ {local-env:create
+  {:doc "Boot local development environment"
+   :task (do
+           (println "\033[33mStarting local environment\033[0m")
+           (shell "docker-compose -f docker-compose.yml up -d")
+           (shell "docker-compose -f docker-compose.yml run wait -c postgres-clj-todo:5432"))}
+
+  local-env:destroy
+  {:doc "Destroy local development environment. Optionally drop data (pass 'drop-data' as first argument)."
+   :task (do
+           (println "\033[33mStopping local environment\033[0m")
+           (let [delete-db-data? (= (nth *command-line-args* 0) "drop-data")]
+             (shell "docker-compose -f docker-compose.yml down --remove-orphans")
+             (when delete-db-data?
+               (println "Deleting postgres data volumes")
+               (shell "docker volume rm clj_todo_postgres_data"))
+             ))}
+  }}
