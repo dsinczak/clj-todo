@@ -2,6 +2,7 @@
   (:require
     [org.dsinczak.todo.db.connection :refer [with-transaction]]
     [org.dsinczak.todo.persistence :as persistence]
+    [org.dsinczak.todo.shared-validation :as validation]
     [taoensso.timbre :as timbre]))
 
 (defn find-all-todos [limit offset]
@@ -12,8 +13,11 @@
 
 (defn create-todo [todo]
   (timbre/info "Creating todo:" todo)
-  (with-transaction
-    (persistence/create todo)))
+  (if-let [bad-word (or (validation/check-for-bad-words (:title todo))
+                        (validation/check-for-bad-words (:content todo)))]
+    [::failure (str "TODO contains bad word: " bad-word)]
+    [::success (with-transaction
+                (persistence/create todo))]))
 
 (defn find-todo [id]
   (timbre/info "Finding todo by id:" id)

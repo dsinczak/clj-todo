@@ -11,6 +11,7 @@
   [;; Basic deps
    [org.clojure/clojure "1.11.1"]
    [aero "1.1.6"]
+   [better-cond "2.1.5"]
 
    ;; Logging
    [com.taoensso/timbre "6.3.1"]

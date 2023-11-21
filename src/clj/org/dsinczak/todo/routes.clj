@@ -1,6 +1,7 @@
 (ns org.dsinczak.todo.routes
 
   (:require
+    [better-cond.core :as b]
     [malli.util :as mu]
     [muuntaja.core :as m]
     [org.dsinczak.todo.schema :as schema]
@@ -30,10 +31,19 @@
 
              :post {:summary    "Create new todo"
                     :parameters {:body schema/create-todo-request}
-                    :responses  {200 {:body schema/create-todo-response}}
+                    :responses  {200 {:body schema/create-todo-response}
+                                 400 {:body schema/error-response}}
                     :handler    (fn [{{:keys [body]} :parameters}]
-                                  {:status 200
-                                   :body   (service/create-todo body)})}}]
+                                  (b/cond
+                                    :let [[status data] (service/create-todo body)]
+
+                                    (= ::service/success status)
+                                    {:status 200
+                                     :body   data}
+
+                                    (= ::service/failure status)
+                                    {:status 400
+                                     :body   {:error data}}))}}]
 
    ["/todo/:id" {:get    {:summary    "Get todo by id"
                           :parameters {:path schema/get-todo-request}

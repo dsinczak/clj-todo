@@ -1,8 +1,7 @@
-# Dev
+# Simple TODO application 
 
-docker-compose up -d
-docker-compose down --remove-orphans
-docker volume rm clj_todo_postgres_data
+The repository contains an application I wrote for a presentation in which I tried to encourage participants to use 
+the clojure language.
 
 # Sample calls
 
