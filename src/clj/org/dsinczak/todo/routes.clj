@@ -20,7 +20,7 @@
     [ring.util.response :as resp]
     [ring.middleware.content-type :as content-type]))
 
-(def routes
+(def api-routes
   ["/api"
    ["/todo" {:get  {:summary    "Get all todos"
                     :parameters {:query schema/get-all-todos-request}
@@ -77,8 +77,8 @@
                                           {:status 404
                                            :body   {:error "Not found"}}))}}]])
 
-(def router
-  (ring/router routes
+(def api-router
+  (ring/router api-routes
                {:validate  spec/validate
                 :exception pretty/exception
                 :data      {:coercion   (reitit.coercion.malli/create
@@ -94,30 +94,31 @@
                                          coercion/coerce-exceptions-middleware
                                          coercion/coerce-request-middleware
                                          coercion/coerce-response-middleware
+                                         ; custom middleware example
                                          ;middleware/token-auth-middleware
                                          ]}}))
 
-(def frontend-api
-  (ring/ring-handler
-    router
-    (ring/create-default-handler)))
-
-(def frontend-ui
+(def ui-pages-resource-handler
   (-> (fn [request]
         (or (resp/resource-response (:uri request) {:root "public"})
             (-> (resp/resource-response "index.html" {:root "public"})
                 (resp/content-type "text/html"))))
       content-type/wrap-content-type))
 
+(def ring-handler
+  (ring/ring-handler
+    api-router
+    ui-pages-resource-handler
+    (ring/create-default-handler)))
 
 (comment
 
   (clojure.pprint/pprint (dissoc request :reitit.core/match))
 
-  (r/router-name router)
+  (r/router-name api-router)
 
-  (r/match-by-path router "/api/todo")
+  (r/match-by-path api-router "/api/todo")
 
-  (r/match-by-path router "/api/todo/10")
+  (r/match-by-path api-router "/api/todo/10")
 
   )

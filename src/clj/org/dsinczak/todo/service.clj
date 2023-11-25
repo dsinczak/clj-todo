@@ -5,6 +5,10 @@
     [org.dsinczak.todo.shared-validation :as validation]
     [taoensso.timbre :as timbre]))
 
+(defn some-very-expensive-call []
+  (timbre/info "Working hard...")
+  (Thread/sleep 5000))
+
 (defn find-all-todos [limit offset]
   (timbre/info "Finding all todos")
   (with-transaction
@@ -26,6 +30,7 @@
 
 (defn update-todo [id todo]
   (timbre/info "Updating todo:" todo "by id:" id)
+  ;(some-very-expensive-call)
   (with-transaction
     (persistence/update-by-id id todo)))
 
@@ -69,5 +74,10 @@
   (set-todo-undone "2b7b73a3-5dd1-4ba3-a058-980f2fe8b809")
   (set-priority "2b7b73a3-5dd1-4ba3-a058-980f2fe8b809" 5)
   (delete-todo "2b7b73a3-5dd1-4ba3-a058-980f2fe8b809")
+
+
+  ; monkey patching
+  (with-redefs [some-very-expensive-call (fn [] (println "Mocking is fun"))]
+   (update-todo "ca0726cb-18f9-446c-83d4-ae46e0f89bfa" {:content "Eye of the tiger"}))
 
   )

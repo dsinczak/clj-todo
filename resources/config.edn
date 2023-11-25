@@ -1,13 +1,11 @@
-{:api-server {:port  3000
-              :join? false}
+{:http-server {:port  3000
+               :join? false}
 
- :ui-server  {:port  4000
-              :join? false}
 
- :db         {:dbtype          "postgres"
-              :username        "todo_dev_user"
-              :password        "secret"
-              :jdbcUrl         "jdbc:postgresql://localhost:6666/todo_dev_db"
-              :checkoutTimeout 5000
-              :description     "PostgreSQL/localhost"
-              :maxPoolSize     20}}
+ :db          {:dbtype          "postgres"
+               :username        "todo_dev_user"
+               :password        "secret"
+               :jdbcUrl         "jdbc:postgresql://localhost:6666/todo_dev_db"
+               :checkoutTimeout 5000
+               :description     "PostgreSQL/localhost"
+               :maxPoolSize     20}}

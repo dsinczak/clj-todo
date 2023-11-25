@@ -241,7 +241,7 @@ label[for='toggle-all'] {
     position: relative;
 }
 
-#todo-list li label {
+#todo-list li label.title {
     white-space: pre;
     word-break: break-word;
     padding: 15px 60px 15px 15px;
@@ -250,6 +250,18 @@ label[for='toggle-all'] {
     line-height: 1.2;
     -webkit-transition: color 0.4s;
     transition: color 0.4s;
+}
+
+#todo-list li label.content {
+    white-space: pre;
+    word-break: break-word;
+    padding: 15px 15px 15px 15px;
+    margin-left: 45px;
+    display: block;
+    line-height: 1.2;
+    -webkit-transition: color 0.4s;
+    transition: color 0.4s;
+    font-size: 14px;
 }
 
 #todo-list li.completed label {

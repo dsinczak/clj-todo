@@ -16,14 +16,17 @@
   (timbre/set-min-level! :info)
   (db.connection/init-connection-pool)
   (db.migrations/apply-migrations)
-  ;; REST API Server
-  (jetty/run-jetty #'routes/frontend-api (config/get-cfg :api-server))
-  ;; UI Resources Server
-  (jetty/run-jetty #'routes/frontend-ui (config/get-cfg :ui-server))
-  (log/info "server running in port:" (config/get-cfg :server :port)))
+  ;; HTTP Server
+  (jetty/run-jetty #'routes/ring-handler (config/get-cfg :http-server))
+  (log/info "Server running in port:" (config/get-cfg :server :port)))
+
 
 (comment
 
   (-main)
+
+  ; monkey patching
+  (alter-var-root (var org.dsinczak.todo.service/some-very-expensive-call)
+                  (fn [original-fn] (fn [] (println "Mocked"))))
 
   )
