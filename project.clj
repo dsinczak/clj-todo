@@ -30,6 +30,9 @@
    [org.postgresql/postgresql "42.5.1"]
    [migratus "1.5.3"]
 
+   ;; Dev
+   [djblue/portal "0.49.1"]
+
    ;; Frontend
    [org.clojure/clojurescript "1.11.121"]
    [com.bhauman/figwheel-main "0.2.18"]

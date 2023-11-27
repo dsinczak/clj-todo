@@ -62,6 +62,8 @@
 
   (find-all-todos 10 0)
 
+  (tap> (find-all-todos 10 0))
+
   (->> (find-all-todos 10 0)
        (mapv :title)
        (mapv #(str/upper-case %)))

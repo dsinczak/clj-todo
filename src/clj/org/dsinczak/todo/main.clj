@@ -29,4 +29,11 @@
   (alter-var-root (var org.dsinczak.todo.service/some-very-expensive-call)
                   (fn [original-fn] (fn [] (println "Mocked"))))
 
+  ;; Fun with TAP
+
+  (require '[portal.api :as p])
+  (add-tap #'p/submit)
+  (def p (p/open {:launcher :intellij}))
+  (tap> :hello)
+
   )
