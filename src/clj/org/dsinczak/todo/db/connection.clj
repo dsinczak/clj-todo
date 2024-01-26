@@ -99,13 +99,18 @@
 
   ;; Debugging
 
+  (require '[clojure.walk :refer [postwalk]])
   (let [todos [{:id       "ca0726cb-18f9-446c-83d4-ae46e0f89bfa",
                 :title    "Go to gym",
                 :content  "Just look at yourself if you need a reason",
                 :done     false,
                 :priority 5,
                 :created  (Timestamp. (System/currentTimeMillis)),
-                :updated  (Timestamp. (System/currentTimeMillis))}
+                :updated  (Timestamp. (System/currentTimeMillis))
+                :just-a-test {:with-a-nested {:map (Timestamp. (System/currentTimeMillis))
+                                              :and-a-vector [(Timestamp. (System/currentTimeMillis))
+                                                             (Timestamp. (System/currentTimeMillis))
+                                                             (Timestamp. (System/currentTimeMillis))]}}}
                {:id       "3227a3e7-71e4-4d14-b437-a1359eb927ce",
                 :title    "Go out of your basement",
                 :content  "See some people, you need it",
@@ -113,6 +118,7 @@
                 :priority 0,
                 :created  (Timestamp. (System/currentTimeMillis)),
                 :updated  (Timestamp. (System/currentTimeMillis))}]]
+    ;; depth-first/post-oder traversal
     (postwalk (fn [f]
                 (if (instance? Timestamp f)
                   ;; OffsetDateTime.ofInstant(Instant.ofEpochMilli(tstamp.getTime), ZoneId.of("UTC"))

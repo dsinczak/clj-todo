@@ -53,7 +53,7 @@
     (find-all 10 0))
 
   (db/with-transaction
-    (find-by-id "XXX"))
+    (find-by-id "5b7c3ed3-36f1-4fc3-a7b9-47255122739a"))
 
   (db/with-transaction
     (update-by-id "XXX" {:content "Because you really need it."}))

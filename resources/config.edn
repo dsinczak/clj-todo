@@ -5,6 +5,8 @@
  :db          {:dbtype          "postgres"
                :username        "todo_dev_user"
                :password        "secret"
+                                 #_#or [#env DB_PASSWORD
+                                        #aws-secret #ref [#env DB_PASSWORD_ARN]]
                :jdbcUrl         "jdbc:postgresql://localhost:6666/todo_dev_db"
                :checkoutTimeout 5000
                :description     "PostgreSQL/localhost"

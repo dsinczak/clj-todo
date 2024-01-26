@@ -8,3 +8,8 @@
                      :migration-dir        "migrations/"
                      :migration-table-name "migratus_state"
                      :db                   {:datasource (db.connection/connection-pool)}}))
+
+(comment
+
+  (apply-migrations)
+  )

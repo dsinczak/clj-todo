@@ -13,3 +13,8 @@
 (defn get-cfg
   [& path]
   (get-in (app-config) path))
+
+(comment
+  (app-config)
+
+  (get-cfg :db :jdbcUrl))

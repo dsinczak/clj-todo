@@ -68,9 +68,9 @@
        (mapv :title)
        (mapv #(str/upper-case %)))
 
-  (find-todo "2b7b73a3-5dd1-4ba3-a058-980f2fe8b809")
+  (find-todo "8a349b5d-2b43-480a-aad7-225d5c272f5f")
 
-  (update-todo "2b7b73a3-5dd1-4ba3-a058-980f2fe8b809" {:content "Because its healthy for you"})
+  (update-todo "8a349b5d-2b43-480a-aad7-225d5c272f5f" {:content "Because its healthy for you"})
 
   (set-todo-done "2b7b73a3-5dd1-4ba3-a058-980f2fe8b809")
   (set-todo-undone "2b7b73a3-5dd1-4ba3-a058-980f2fe8b809")

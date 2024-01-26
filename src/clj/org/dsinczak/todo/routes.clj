@@ -34,6 +34,7 @@
                     :responses  {200 {:body schema/create-todo-response}
                                  400 {:body schema/error-response}}
                     :handler    (fn [{{:keys [body]} :parameters}]
+                                  (tap> body)
                                   (b/cond
                                     :let [[status data] (service/create-todo body)]
 
@@ -95,7 +96,7 @@
                                          coercion/coerce-request-middleware
                                          coercion/coerce-response-middleware
                                          ; custom middleware example
-                                         ;middleware/token-auth-middleware
+                                         ; middleware/token-auth-middleware
                                          ]}}))
 
 (def ui-pages-resource-handler
@@ -112,8 +113,6 @@
     (ring/create-default-handler)))
 
 (comment
-
-  (clojure.pprint/pprint (dissoc request :reitit.core/match))
 
   (r/router-name api-router)
 
